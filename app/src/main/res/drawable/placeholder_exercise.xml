@@ -1,0 +1,23 @@
+<!-- res/drawable/placeholder_exercise.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="200dp"
+    android:viewportWidth="400"
+    android:viewportHeight="200">
+
+    <!-- Fondo -->
+    <path
+        android:fillColor="@color/background_main"
+        android:pathData="M0,0h400v200H0z"/>
+
+    <!-- Icono de pincel grande -->
+    <path
+        android:fillColor="@color/text_primary"
+        android:pathData="M180,60l-20,20l30,30l20,-20z
+                       M160,80l-10,10v30c0,11 9,20 20,20s20,-9 20,-20V90l-10,-10H160z"/>
+
+    <path
+        android:fillColor="@color/text_secondary"
+        android:fillAlpha="0.5"
+        android:pathData="M200,150c-11,0 -20,-9 -20,-20v-10h40v10C220,141 211,150 200,150z"/>
+</vector>

@@ -1,0 +1,24 @@
+<!-- res/drawable/ic_logo.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Círculo de fondo -->
+    <path
+        android:fillColor="@color/text_primary"
+        android:pathData="M60,60m-55,0a55,55 0,1 1,110 0a55,55 0,1 1,-110 0"/>
+
+    <!-- Paleta de pintura -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M75,45c-8.28,0 -15,6.72 -15,15c0,8.28 6.72,15 15,15s15,-6.72 15,-15C90,51.72 83.28,45 75,45z
+                       M45,35c-8.28,0 -15,6.72 -15,15c0,8.28 6.72,15 15,15s15,-6.72 15,-15C60,41.72 53.28,35 45,35z
+                       M60,70c-11.05,0 -20,8.95 -20,20h40C80,78.95 71.05,70 60,70z"/>
+
+    <!-- Pincel -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M65,25L55,35L70,50L80,40Z"/>
+</vector>
