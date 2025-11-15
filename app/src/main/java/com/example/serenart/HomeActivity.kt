@@ -26,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
         initViews()
         setupClickListeners()
         setupBottomNavigation()
-        loadUserData()
+        //loadUserData()
     }
 
     private fun initViews() {
@@ -88,6 +88,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    /*
     private fun loadUserData() {
         // TODO: Cargar datos del usuario desde Firebase/Preferencias
         val userName = "Usuario" // Placeholder
@@ -97,8 +98,9 @@ class HomeActivity : AppCompatActivity() {
         // TODO: Cargar ejercicio del día
     }
 
-    override fun onBackPressed() {
+     */
+    fun onBackPressedDispatched() {
         // Preguntar si desea salir de la aplicación
-        super.onBackPressed()
+        super.onBackPressedDispatcher
     }
 }
