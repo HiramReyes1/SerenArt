@@ -36,6 +36,16 @@
                     android:textStyle="bold"/>
 
                 <ImageButton
+                    android:id="@+id/btn_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/padding_small"
+                    android:src="@drawable/ic_add"
+                    app:tint="@color/button_primary"
+                    app:backgroundTint="@color/white"
+                    android:contentDescription="Crear"/>
+
+                <ImageButton
                     android:id="@+id/btn_notifications"
                     android:layout_width="@dimen/icon_size_large"
                     android:layout_height="@dimen/icon_size_large"
@@ -182,19 +192,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- FAB -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginBottom="72dp"
-        android:src="@drawable/ic_add"
-        app:tint="@color/white"
-        app:backgroundTint="@color/button_primary"
-        android:contentDescription="Crear"/>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
