@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main">
+
+    <!-- Área de dibujo -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="120dp">
+
+        <!-- Custom Drawing View -->
+        <com.example.serenart.views.DrawingView
+            android:id="@+id/drawing_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+    </FrameLayout>
+
+    <!-- Top Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="4dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Botón de instrucciones -->
+                <ImageButton
+                    android:id="@+id/btn_instructions"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_help"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Instrucciones"
+                    app:tint="@color/text_primary"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <!-- Botón deshacer -->
+                <ImageButton
+                    android:id="@+id/btn_undo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_undo"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Deshacer"
+                    app:tint="@color/text_primary"/>
+
+                <!-- Botón rehacer -->
+                <ImageButton
+                    android:id="@+id/btn_redo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_redo"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Rehacer"
+                    app:tint="@color/text_primary"/>
+
+                <!-- Botón limpiar -->
+                <ImageButton
+                    android:id="@+id/btn_clear"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_delete"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Limpiar"
+                    app:tint="@color/error"/>
+
+                <!-- Botón guardar -->
+                <ImageButton
+                    android:id="@+id/btn_save"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_save"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Guardar"
+                    app:tint="@color/success"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Bottom Toolbar con herramientas -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:padding="@dimen/padding_small">
+
+        <!-- Control de grosor del pincel -->
+        <LinearLayout
+            android:id="@+id/layout_brush_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding_medium"
+            android:paddingEnd="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_brush"
+                app:tint="@color/text_primary"/>
+
+            <SeekBar
+                android:id="@+id/seekbar_brush_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/padding_small"
+                android:layout_marginEnd="@dimen/padding_small"
+                android:max="100"
+                android:progress="25"/>
+
+            <TextView
+                android:id="@+id/tv_brush_size"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/text_primary"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Paleta de colores -->
+        <HorizontalScrollView
+            android:id="@+id/scroll_colors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:visibility="gone"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small">
+
+            <LinearLayout
+                android:id="@+id/layout_colors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/padding_small"
+                android:paddingEnd="@dimen/padding_small"
+                android:gravity="center_vertical">
+                <!-- Los colores se agregarán dinámicamente -->
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Herramientas principales -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="@dimen/padding_small">
+
+            <!-- Pincel -->
+            <LinearLayout
+                android:id="@+id/btn_tool_brush"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/padding_small"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/icon_brush"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_brush"
+                    app:tint="@color/button_primary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pincel"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <!-- Goma -->
+            <LinearLayout
+                android:id="@+id/btn_tool_eraser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/padding_small"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/icon_eraser"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_eraser"
+                    app:tint="@color/text_secondary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Goma"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <!-- Colores -->
+            <LinearLayout
+                android:id="@+id/btn_tool_colors"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/padding_small"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/icon_colors"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_palette"
+                    app:tint="@color/text_secondary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Colores"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <!-- Formas -->
+            <LinearLayout
+                android:id="@+id/btn_tool_shapes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/padding_small"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/icon_shapes"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_shapes"
+                    app:tint="@color/text_secondary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Formas"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

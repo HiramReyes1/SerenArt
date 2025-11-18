@@ -56,6 +56,12 @@
             android:name=".ProfileActivity"
             android:exported="false" />
 
+        <!-- Activity de Lienzo de Dibujo -->
+        <activity
+            android:name=".DrawingCanvasActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SerenArt" />
+
     </application>
 
 </manifest>
