@@ -34,7 +34,6 @@ class DiaryActivity : AppCompatActivity() {
         btnFilter = findViewById(R.id.btn_filter)
         rvDiaryEntries = findViewById(R.id.rv_diary_entries)
         layoutEmptyState = findViewById(R.id.layout_empty_state)
-        fabNewEntry = findViewById(R.id.fab_new_entry)
         bottomNavigation = findViewById(R.id.bottom_navigation)
     }
 

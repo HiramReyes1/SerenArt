@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_main">
+
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="@color/text_primary"
+        app:title="Cargar Imagen"
+        app:titleTextColor="@color/text_primary"
+        app:elevation="4dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_large"
+            android:gravity="center">
+
+            <!-- Opciones de carga -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_medium"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardBackgroundColor="@color/background_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_large"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/ic_camera"
+                        app:tint="@color/text_primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_medium"
+                        android:text="Tomar Foto"
+                        android:textSize="@dimen/text_size_heading"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:text="Captura tu dibujo con la cámara"
+                        android:textSize="@dimen/text_size_body"
+                        android:textColor="@color/text_secondary"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_large"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardBackgroundColor="@color/background_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_large"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/ic_gallery"
+                        app:tint="@color/text_primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_medium"
+                        android:text="Desde Galería"
+                        android:textSize="@dimen/text_size_heading"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:text="Selecciona una foto existente"
+                        android:textSize="@dimen/text_size_body"
+                        android:textColor="@color/text_secondary"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Vista previa de imagen -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_preview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardBackgroundColor="@color/background_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_medium">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vista Previa"
+                        android:textSize="@dimen/text_size_title"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/padding_small"/>
+
+                    <ImageView
+                        android:id="@+id/iv_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="centerInside"
+                        android:contentDescription="Vista previa"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/padding_medium">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_retake"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/padding_small"
+                            android:text="Repetir"
+                            android:textColor="@color/text_primary"
+                            app:strokeColor="@color/text_primary"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_use_image"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/padding_small"
+                            android:text="Usar Imagen"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@color/button_primary"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Loading indicator -->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_large"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_processing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="Procesando imagen..."
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/text_secondary"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

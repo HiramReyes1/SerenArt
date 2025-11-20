@@ -93,8 +93,7 @@ class MainActivity : AppCompatActivity() {
         // TODO: Implementar autenticación con Firebase
         Toast.makeText(this, "Iniciando sesión...", Toast.LENGTH_SHORT).show()
 
-        // Simulación de login exitoso
-        // TODO: Guardar sesión en SharedPreferences
+        // Por ahora, navegar directamente sin validación
         navigateToHome()
     }
 

@@ -69,6 +69,23 @@ class DrawingCanvasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawing_canvas)
 
+        val backCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                MaterialAlertDialogBuilder(this@DrawingCanvasActivity)
+                    .setTitle("Salir sin guardar")
+                    .setMessage("¿Deseas salir sin guardar tu dibujo?")
+                    .setPositiveButton("Salir") { _, _ ->
+                        isEnabled = false     // desactivar callback
+                        onBackPressedDispatcher.onBackPressed() // ejecutar back real
+                    }
+                    .setNegativeButton("Continuar dibujando", null)
+                    .show()
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, backCallback)
+
+
         initViews()
         setupToolbar()
         setupBrushSizeControl()
@@ -78,16 +95,6 @@ class DrawingCanvasActivity : AppCompatActivity() {
 
         // Establecer color inicial
         drawingView.setColor(currentColor)
-
-        //salida
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                mostrarDialogoSalida()
-            }
-        }
-
-        onBackPressedDispatcher.addCallback(this, callback)
-
     }
 
     private fun initViews() {
@@ -333,17 +340,5 @@ class DrawingCanvasActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error al guardar: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun mostrarDialogoSalida() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Salir sin guardar")
-            .setMessage("¿Deseas salir sin guardar tu dibujo?")
-            .setPositiveButton("Salir") { _, _ ->
-                // Importante: desactivar el callback para permitir el back normal
-                this.onBackPressedDispatcher.onBackPressed()
-            }
-            .setNegativeButton("Continuar dibujando", null)
-            .show()
     }
 }

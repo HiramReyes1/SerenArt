@@ -8,15 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var tvGreeting: TextView
+    private lateinit var btnAdd: ImageButton
     private lateinit var btnNotifications: ImageButton
     private lateinit var cardExerciseDay: MaterialCardView
     private lateinit var btnStartExercise: MaterialButton
-    private lateinit var fabAdd: FloatingActionButton
     private lateinit var bottomNavigation: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,19 +25,23 @@ class HomeActivity : AppCompatActivity() {
         initViews()
         setupClickListeners()
         setupBottomNavigation()
-        //loadUserData()
+        loadUserData()
     }
 
     private fun initViews() {
         tvGreeting = findViewById(R.id.tv_greeting)
+        btnAdd = findViewById(R.id.btn_add)
         btnNotifications = findViewById(R.id.btn_notifications)
         cardExerciseDay = findViewById(R.id.card_exercise_day)
         btnStartExercise = findViewById(R.id.btn_start_exercise)
-        fabAdd = findViewById(R.id.fab_add)
         bottomNavigation = findViewById(R.id.bottom_navigation)
     }
 
     private fun setupClickListeners() {
+        btnAdd.setOnClickListener {
+            // TODO: Mostrar opciones de creación rápida
+        }
+
         btnNotifications.setOnClickListener {
             // TODO: Abrir pantalla de notificaciones
         }
@@ -49,10 +52,6 @@ class HomeActivity : AppCompatActivity() {
 
         cardExerciseDay.setOnClickListener {
             // TODO: Navegar a detalle del ejercicio
-        }
-
-        fabAdd.setOnClickListener {
-            // TODO: Mostrar opciones de creación rápida
         }
     }
 
@@ -88,19 +87,8 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    /*
     private fun loadUserData() {
-        // TODO: Cargar datos del usuario desde Firebase/Preferencias
-        val userName = "Usuario" // Placeholder
-        tvGreeting.text = getString(R.string.hello, userName)
-
-        // TODO: Cargar gráfico de progreso emocional
-        // TODO: Cargar ejercicio del día
-    }
-
-     */
-    fun onBackPressedDispatched() {
-        // Preguntar si desea salir de la aplicación
-        super.onBackPressedDispatcher
+        val userName = "Usuario"
+        tvGreeting.text = "Hola, $userName"
     }
 }

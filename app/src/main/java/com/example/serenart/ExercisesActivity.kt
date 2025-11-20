@@ -3,9 +3,12 @@ package com.example.serenart
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.serenart.adapters.ExerciseAdapter
+import com.example.serenart.models.Exercise
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ExercisesActivity : AppCompatActivity() {
@@ -62,13 +65,11 @@ class ExercisesActivity : AppCompatActivity() {
             LinearLayoutManager.HORIZONTAL,
             false
         )
-
-        // TODO: Configurar adapters
     }
 
     private fun setupClickListeners() {
         btnFilter.setOnClickListener {
-            // TODO: Mostrar dialog de filtros
+            Toast.makeText(this, "Filtros próximamente", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -84,7 +85,6 @@ class ExercisesActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_exercises -> {
-                    // Ya estamos en Ejercicios
                     true
                 }
                 R.id.nav_diary -> {
@@ -105,7 +105,74 @@ class ExercisesActivity : AppCompatActivity() {
     }
 
     private fun loadExercises() {
-        // TODO: Cargar ejercicios desde Firebase/Base de datos local
-        // TODO: Aplicar filtros según el estado de ánimo del usuario
+        // Ejercicios de muestra - reemplazar con datos de Firebase
+        val recommendedExercises = createSampleExercises("recomendado")
+        val calmStormExercises = createSampleExercises("calma")
+        val presentAnchorExercises = createSampleExercises("anclaje")
+        val exploringEmotionsExercises = createSampleExercises("emociones")
+
+        // Configurar adaptadores con callback para navegar
+        rvRecommended.adapter = ExerciseAdapter(recommendedExercises) { exercise ->
+            navigateToDrawing(exercise)
+        }
+
+        rvCalmStorm.adapter = ExerciseAdapter(calmStormExercises) { exercise ->
+            navigateToDrawing(exercise)
+        }
+
+        rvPresentAnchor.adapter = ExerciseAdapter(presentAnchorExercises) { exercise ->
+            navigateToDrawing(exercise)
+        }
+
+        rvExploringEmotions.adapter = ExerciseAdapter(exploringEmotionsExercises) { exercise ->
+            navigateToDrawing(exercise)
+        }
+    }
+
+    private fun createSampleExercises(category: String): List<Exercise> {
+        // Datos de muestra - reemplazar con Firebase
+        return listOf(
+            Exercise(
+                id = "1_$category",
+                title = "Mandala de la Calma",
+                description = "Dibuja patrones repetitivos",
+                duration = "15 min",
+                category = category,
+                imageRes = R.drawable.placeholder_exercise
+            ),
+            Exercise(
+                id = "2_$category",
+                title = "Expresión Libre",
+                description = "Deja fluir tus emociones",
+                duration = "20 min",
+                category = category,
+                imageRes = R.drawable.placeholder_exercise
+            ),
+            Exercise(
+                id = "3_$category",
+                title = "Garabatos Conscientes",
+                description = "Dibuja sin pensar",
+                duration = "10 min",
+                category = category,
+                imageRes = R.drawable.placeholder_exercise
+            ),
+            Exercise(
+                id = "4_$category",
+                title = "Paisaje Emocional",
+                description = "Representa tu estado actual",
+                duration = "25 min",
+                category = category,
+                imageRes = R.drawable.placeholder_exercise
+            )
+        )
+    }
+
+    private fun navigateToDrawing(exercise: Exercise) {
+        val intent = Intent(this, DrawingCanvasActivity::class.java).apply {
+            putExtra("EXERCISE_ID", exercise.id)
+            putExtra("EXERCISE_TITLE", exercise.title)
+            putExtra("EXERCISE_CATEGORY", exercise.category)
+        }
+        startActivity(intent)
     }
 }
