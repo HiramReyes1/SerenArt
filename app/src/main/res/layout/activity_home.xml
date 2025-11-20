@@ -80,11 +80,12 @@
                         android:layout_marginBottom="@dimen/padding_small"/>
 
                     <!-- Aquí irá el gráfico (LineChart, BarChart, etc.) -->
-                    <View
+                    <ImageView
                         android:id="@+id/chart_container"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:background="@color/background_main"/>
+
+                        android:src="@drawable/ejemplo_progreso"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
