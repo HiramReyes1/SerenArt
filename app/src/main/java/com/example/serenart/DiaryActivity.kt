@@ -5,18 +5,20 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.serenart.adapters.DiaryAdapter
+import com.example.serenart.models.DiaryEntry
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DiaryActivity : AppCompatActivity() {
 
+    private lateinit var btnAdd: ImageButton
     private lateinit var btnFilter: ImageButton
     private lateinit var rvDiaryEntries: RecyclerView
     private lateinit var layoutEmptyState: LinearLayout
-    private lateinit var fabNewEntry: FloatingActionButton
     private lateinit var bottomNavigation: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,7 @@ class DiaryActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        btnAdd = findViewById(R.id.btn_add)
         btnFilter = findViewById(R.id.btn_filter)
         rvDiaryEntries = findViewById(R.id.rv_diary_entries)
         layoutEmptyState = findViewById(R.id.layout_empty_state)
@@ -40,18 +43,17 @@ class DiaryActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         // Grid de 2 columnas para las entradas
         rvDiaryEntries.layoutManager = GridLayoutManager(this, 2)
-
-        // TODO: Configurar adapter
     }
 
     private fun setupClickListeners() {
-        btnFilter.setOnClickListener {
-            // TODO: Mostrar dialog de filtros (por fecha, emoción, etc.)
+        btnAdd.setOnClickListener {
+            // Navegar a crear nueva entrada
+            val intent = Intent(this, DiaryEntryActivity::class.java)
+            startActivity(intent)
         }
 
-        fabNewEntry.setOnClickListener {
-            // TODO: Navegar a pantalla de nueva entrada
-            // startActivity(Intent(this, DiaryEntryActivity::class.java))
+        btnFilter.setOnClickListener {
+            Toast.makeText(this, "Filtros próximamente", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -73,7 +75,6 @@ class DiaryActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_diary -> {
-                    // Ya estamos en Diario
                     true
                 }
                 R.id.nav_profile -> {
@@ -88,8 +89,8 @@ class DiaryActivity : AppCompatActivity() {
     }
 
     private fun loadDiaryEntries() {
-        // TODO: Cargar entradas desde Firebase/Base de datos local
-        val entries = emptyList<Any>() // Placeholder
+        // Datos de ejemplo - reemplazar con Firebase
+        val entries = createSampleEntries()
 
         if (entries.isEmpty()) {
             // Mostrar estado vacío
@@ -99,7 +100,62 @@ class DiaryActivity : AppCompatActivity() {
             // Mostrar entradas
             rvDiaryEntries.visibility = View.VISIBLE
             layoutEmptyState.visibility = View.GONE
-            // TODO: Configurar adapter con las entradas
+
+            // Configurar adapter
+            rvDiaryEntries.adapter = DiaryAdapter(entries) { entry ->
+                openEntryDetail(entry)
+            }
         }
+    }
+
+    private fun createSampleEntries(): List<DiaryEntry> {
+        return listOf(
+            DiaryEntry(
+                id = "1",
+                date = "20 Nov 2024",
+                entryText = "Hoy me sentí muy tranquilo después del ejercicio de mandala. Los colores me ayudaron a expresar mi calma interior.",
+                mood = "😊"
+            ),
+            DiaryEntry(
+                id = "2",
+                date = "19 Nov 2024",
+                entryText = "Día complicado, pero el dibujo me ayudó a procesar mis emociones. Me di cuenta de que necesito más tiempo para mí.",
+                mood = "😐"
+            ),
+            DiaryEntry(
+                id = "3",
+                date = "18 Nov 2024",
+                entryText = "Increíble cómo el arte puede cambiar mi perspectiva. Hoy dibujé un paisaje y me sentí en paz.",
+                mood = "😊"
+            ),
+            DiaryEntry(
+                id = "4",
+                date = "17 Nov 2024",
+                entryText = "Me costó concentrarme hoy, pero el ejercicio de respiración mientras dibujaba me ayudó mucho.",
+                mood = "😐"
+            ),
+            DiaryEntry(
+                id = "5",
+                date = "16 Nov 2024",
+                entryText = "Primera vez usando la app. Me gusta poder expresarme sin palabras, solo con colores y formas.",
+                mood = "😊"
+            ),
+            DiaryEntry(
+                id = "6",
+                date = "15 Nov 2024",
+                entryText = "Día difícil en el trabajo. El dibujo libre me permitió soltar el estrés acumulado.",
+                mood = "😔"
+            )
+        )
+    }
+
+    private fun openEntryDetail(entry: DiaryEntry) {
+        val intent = Intent(this, DiaryEntryDetailActivity::class.java).apply {
+            putExtra("ENTRY_ID", entry.id)
+            putExtra("ENTRY_DATE", entry.date)
+            putExtra("ENTRY_TEXT", entry.entryText)
+            putExtra("ENTRY_MOOD", entry.mood)
+        }
+        startActivity(intent)
     }
 }

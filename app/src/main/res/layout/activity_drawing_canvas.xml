@@ -39,8 +39,8 @@
             <!-- Botón deshacer -->
             <ImageView
                 android:id="@+id/btn_undo"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_undo"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -52,8 +52,8 @@
             <!-- Botón rehacer -->
             <ImageView
                 android:id="@+id/btn_redo"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_redo"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -65,8 +65,8 @@
             <!-- Botón limpiar -->
             <ImageView
                 android:id="@+id/btn_clear"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -78,8 +78,8 @@
             <!-- Botón guardar -->
             <ImageView
                 android:id="@+id/btn_save"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_save"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -230,7 +230,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Goma"
+                    android:text="Borrar"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/text_secondary"
                     android:layout_marginTop="4dp"/>

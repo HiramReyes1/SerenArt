@@ -67,6 +67,18 @@
             android:name=".ImageLoaderActivity"
             android:exported="false" />
 
+        <!-- Activity de Nueva Entrada del Diario -->
+        <activity
+            android:name=".DiaryEntryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Activity de Detalle de Entrada del Diario -->
+        <activity
+            android:name=".DiaryEntryDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <!-- FileProvider para captura de cámara -->
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_main">
+
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_back"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Atrás"
+                app:tint="@color/text_primary"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nueva Entrada"
+                android:textSize="@dimen/text_size_heading"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/padding_small"/>
+
+            <ImageView
+                android:id="@+id/btn_save"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_save"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Guardar"
+                app:tint="@color/success"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
+
+            <!-- Fecha -->
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 Nov 2024"
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="@dimen/padding_medium"/>
+
+            <!-- Selector de estado de ánimo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Cómo te sientes?"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/padding_small"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/padding_large">
+
+                <TextView
+                    android:id="@+id/mood_sad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="😔"
+                    android:textSize="48sp"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_medium"
+                    android:background="?attr/selectableItemBackground"/>
+
+                <TextView
+                    android:id="@+id/mood_neutral"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="😐"
+                    android:textSize="48sp"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_medium"
+                    android:background="?attr/selectableItemBackground"/>
+
+                <TextView
+                    android:id="@+id/mood_happy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="😊"
+                    android:textSize="48sp"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_medium"
+                    android:background="?attr/selectableItemBackground"/>
+            </LinearLayout>
+
+            <!-- Campo de texto -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Qué quieres compartir?"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/padding_small"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_medium"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/text_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_entry_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="200dp"
+                    android:gravity="top|start"
+                    android:hint="Escribe sobre tu día, tus emociones, lo que creaste..."
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/text_primary"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Sección de dibujo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mi Creación de Hoy"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/padding_small"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_drawing"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="@dimen/padding_medium"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardBackgroundColor="@color/background_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/iv_drawing_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        android:contentDescription="Vista previa del dibujo"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_no_drawing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:src="@drawable/ic_brush"
+                            android:alpha="0.5"
+                            app:tint="@color/text_secondary"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_small"
+                            android:text="Adjunta tu dibujo"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="@dimen/text_size_body"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_attach_drawing"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adjuntar Dibujo"
+                android:textColor="@color/text_primary"
+                app:strokeColor="@color/text_primary"
+                app:icon="@drawable/ic_brush"
+                app:iconTint="@color/text_primary"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
