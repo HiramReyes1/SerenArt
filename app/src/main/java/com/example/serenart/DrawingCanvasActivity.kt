@@ -20,10 +20,10 @@ class DrawingCanvasActivity : AppCompatActivity() {
     private lateinit var drawingView: DrawingView
     private lateinit var toolbar: Toolbar
     private lateinit var btnInstructions: ImageButton
-    private lateinit var btnUndo: ImageButton
-    private lateinit var btnRedo: ImageButton
-    private lateinit var btnClear: ImageButton
-    private lateinit var btnSave: ImageButton
+    private lateinit var btnUndo: ImageView
+    private lateinit var btnRedo: ImageView
+    private lateinit var btnClear: ImageView
+    private lateinit var btnSave: ImageView
     private lateinit var layoutBrushSize: LinearLayout
     private lateinit var seekbarBrushSize: SeekBar
     private lateinit var tvBrushSize: TextView

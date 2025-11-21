@@ -18,7 +18,7 @@ import java.util.*
 class DiaryEntryActivity : AppCompatActivity() {
 
     private lateinit var btnBack: ImageButton
-    private lateinit var btnSave: ImageButton
+    private lateinit var btnSave: ImageView
     private lateinit var tvDate: TextView
     private lateinit var moodSad: TextView
     private lateinit var moodNeutral: TextView
