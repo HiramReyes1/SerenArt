@@ -105,64 +105,123 @@ class ExercisesActivity : AppCompatActivity() {
     }
 
     private fun loadExercises() {
-        // Ejercicios de muestra - reemplazar con datos de Firebase
-        val recommendedExercises = createSampleExercises("recomendado")
-        val calmStormExercises = createSampleExercises("calma")
-        val presentAnchorExercises = createSampleExercises("anclaje")
-        val exploringEmotionsExercises = createSampleExercises("emociones")
+        // Crear todos los ejercicios por categoría
+        val allExercises = createAllExercises()
 
-        // Configurar adaptadores con callback para navegar
+        // Recomendados: mezcla de todas las categorías
+        val recommendedExercises = listOf(
+            allExercises["calma"]!![0],
+            allExercises["emociones"]!![0],
+            allExercises["anclaje"]!![0],
+            allExercises["calma"]!![1],
+            allExercises["emociones"]!![1]
+        )
+
+        // Configurar adaptadores con ejercicios específicos por categoría
         rvRecommended.adapter = ExerciseAdapter(recommendedExercises) { exercise ->
             navigateToDrawing(exercise)
         }
 
-        rvCalmStorm.adapter = ExerciseAdapter(calmStormExercises) { exercise ->
+        rvCalmStorm.adapter = ExerciseAdapter(allExercises["calma"]!!) { exercise ->
             navigateToDrawing(exercise)
         }
 
-        rvPresentAnchor.adapter = ExerciseAdapter(presentAnchorExercises) { exercise ->
+        rvPresentAnchor.adapter = ExerciseAdapter(allExercises["anclaje"]!!) { exercise ->
             navigateToDrawing(exercise)
         }
 
-        rvExploringEmotions.adapter = ExerciseAdapter(exploringEmotionsExercises) { exercise ->
+        rvExploringEmotions.adapter = ExerciseAdapter(allExercises["emociones"]!!) { exercise ->
             navigateToDrawing(exercise)
         }
     }
 
-    private fun createSampleExercises(category: String): List<Exercise> {
-        // Datos de muestra - reemplazar con Firebase
-        return listOf(
-            Exercise(
-                id = "1_$category",
-                title = "Mandala de la Calma",
-                description = "Dibuja patrones repetitivos",
-                duration = "15 min",
-                category = category,
-                imageRes = R.drawable.placeholder_exercise
+    private fun createAllExercises(): Map<String, List<Exercise>> {
+        return mapOf(
+            "calma" to listOf(
+                Exercise(
+                    id = "calma_1",
+                    title = "Mandala de la Calma",
+                    description = "Dibuja patrones repetitivos para encontrar paz interior",
+                    duration = "15 min",
+                    category = "calma",
+                    imageRes = R.drawable.placeholder_exercise
+                ),
+                Exercise(
+                    id = "calma_2",
+                    title = "Respiración Cromática",
+                    description = "Pinta mientras respiras conscientemente",
+                    duration = "20 min",
+                    category = "calma",
+                    imageRes = R.drawable.placeholder_exercise
+                ),
+                Exercise(
+                    id = "calma_3",
+                    title = "Olas de Serenidad",
+                    description = "Dibuja líneas fluidas como el agua",
+                    duration = "10 min",
+                    category = "calma",
+                    imageRes = R.drawable.placeholder_exercise
+                )
             ),
-            Exercise(
-                id = "2_$category",
-                title = "Expresión Libre",
-                description = "Deja fluir tus emociones",
-                duration = "20 min",
-                category = category,
-                imageRes = R.drawable.placeholder_exercise
+            "anclaje" to listOf(
+                Exercise(
+                    id = "anclaje_1",
+                    title = "Aquí y Ahora",
+                    description = "Dibuja lo que ves en este momento",
+                    duration = "15 min",
+                    category = "anclaje",
+                    imageRes = R.drawable.placeholder_exercise
+                ),
+                Exercise(
+                    id = "anclaje_2",
+                    title = "Trazos Conscientes",
+                    description = "Cada línea es una conexión con el presente",
+                    duration = "12 min",
+                    category = "anclaje",
+                    imageRes = R.drawable.placeholder_exercise
+                ),
+                Exercise(
+                    id = "anclaje_3",
+                    title = "Observación Detallada",
+                    description = "Dibuja un objeto con total atención",
+                    duration = "20 min",
+                    category = "anclaje",
+                    imageRes = R.drawable.placeholder_exercise
+                )
             ),
-            Exercise(
-                id = "3_$category",
-                title = "Garabatos Conscientes",
-                description = "Dibuja sin pensar",
-                duration = "10 min",
-                category = category,
-                imageRes = R.drawable.placeholder_exercise
-            ),
-            Exercise(
-                id = "4_$category",
-                title = "Paisaje Emocional",
-                description = "Representa tu estado actual",
-                duration = "25 min",
-                category = category,
-                imageRes = R.drawable.placeholder_exercise
+            "emociones" to listOf(
+                Exercise(
+                    id = "emociones_1",
+                    title = "Expresión Libre",
+                    description = "Deja fluir tus emociones sin juzgar",
+                    duration = "20 min",
+                    category = "emociones",
+                    imageRes = R.drawable.placeholder_exercise
+                ),
+                Exercise(
+                    id = "emociones_2",
+                    title = "Mapa Emocional",
+                    description = "Representa cómo te sientes con colores",
+                    duration = "25 min",
+                    category = "emociones",
+                    imageRes = R.drawable.placeholder_exercise
+                ),
+                Exercise(
+                    id = "emociones_3",
+                    title = "Garabatos Liberadores",
+                    description = "Suelta la tensión a través del dibujo",
+                    duration = "10 min",
+                    category = "emociones",
+                    imageRes = R.drawable.placeholder_exercise
+                ),
+                Exercise(
+                    id = "emociones_4",
+                    title = "Autorretrato Emocional",
+                    description = "Dibuja cómo te ves interiormente hoy",
+                    duration = "30 min",
+                    category = "emociones",
+                    imageRes = R.drawable.placeholder_exercise
+                )
             )
         )
     }
