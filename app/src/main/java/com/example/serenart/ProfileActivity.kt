@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.serenart.data.repository.FirebaseRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
@@ -23,6 +25,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var layoutHelp: LinearLayout
     private lateinit var btnLogout: MaterialButton
     private lateinit var bottomNavigation: BottomNavigationView
+
+    private val firebaseRepository = FirebaseRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,16 +122,19 @@ class ProfileActivity : AppCompatActivity() {
             .setTitle("Cerrar Sesión")
             .setMessage("¿Estás seguro que deseas cerrar sesión?")
             .setPositiveButton("Sí") { _, _ ->
-                performLogout()
+                cerrarSesion()
             }
             .setNegativeButton("Cancelar", null)
             .show()
     }
 
-    private fun performLogout() {
-        // TODO: Cerrar sesión en Firebase
-        // TODO: Limpiar preferencias locales
+    private fun cerrarSesion() {
+        firebaseRepository.cerrarSesion()
+        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
+        navigateToLogin()
+    }
 
+    private fun navigateToLogin() {
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
