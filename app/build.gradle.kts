@@ -44,18 +44,29 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.google.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //implementation(libs.opencv)
 
     // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
+    implementation(platform(libs.firebase.bom.v3470))
 
 
     // TODO: Add the dependencies for Firebase products you want to use
     // When using the BoM, don't specify versions in Firebase dependencies
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.firebase.analytics)
+
+    // Firebase Authentication
+    implementation(libs.firebase.auth.ktx)
+
+    // Firebase Firestore
+    implementation(libs.google.firebase.firestore.ktx)
+
+    // Coroutines para operaciones asíncronas
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.10.2")
 
 
     // Add the dependencies for any other desired Firebase products

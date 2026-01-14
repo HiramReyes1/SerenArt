@@ -2,13 +2,18 @@ package com.example.serenart
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.CheckBox
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.serenart.data.repository.FirebaseRepository
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -20,6 +25,9 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var cbTerms: CheckBox
     private lateinit var btnCreateAccount: MaterialButton
     private lateinit var tvLogin: TextView
+    private lateinit var progressBar: ProgressBar
+
+    private val firebaseRepository = FirebaseRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +46,7 @@ class RegisterActivity : AppCompatActivity() {
         cbTerms = findViewById(R.id.cb_terms)
         btnCreateAccount = findViewById(R.id.btn_create_account)
         tvLogin = findViewById(R.id.tv_login)
+        progressBar = findViewById(R.id.progress_bar)
 
         // Configurar toolbar
         toolbar.setNavigationOnClickListener {
@@ -47,10 +56,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         btnCreateAccount.setOnClickListener {
-            val fullname = etFullname.text.toString()
-            val email = etEmail.text.toString()
-            val password = etPassword.text.toString()
-            val confirmPassword = etConfirmPassword.text.toString()
+            val fullname = etFullname.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
+            val confirmPassword = etConfirmPassword.text.toString().trim()
 
             if (validateInputs(fullname, email, password, confirmPassword)) {
                 performRegistration(fullname, email, password)
@@ -73,6 +82,15 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
+        if (fullname.length < 3) {
+            Toast.makeText(
+                this,
+                "El nombre debe tener al menos 3 caracteres",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
         if (email.isEmpty()) {
             Toast.makeText(this, "Ingresa tu correo electrónico", Toast.LENGTH_SHORT).show()
             return false
@@ -88,8 +106,54 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
-        if (password.length < 6) {
-            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+        // Validación mejorada de contraseña según RF-013
+        if (password.length < 8) {
+            Toast.makeText(
+                this,
+                "La contraseña debe tener al menos 8 caracteres",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
+        // Verificar mayúsculas
+        if (!password.any { it.isUpperCase() }) {
+            Toast.makeText(
+                this,
+                "La contraseña debe contener al menos una letra mayúscula",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
+        // Verificar minúsculas
+        if (!password.any { it.isLowerCase() }) {
+            Toast.makeText(
+                this,
+                "La contraseña debe contener al menos una letra minúscula",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
+        // Verificar números
+        if (!password.any { it.isDigit() }) {
+            Toast.makeText(
+                this,
+                "La contraseña debe contener al menos un número",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
+        // Verificar caracteres especiales
+        val caracteresEspeciales = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+        if (!password.any { it in caracteresEspeciales }) {
+            Toast.makeText(
+                this,
+                "La contraseña debe contener al menos un carácter especial (!@#$%...)",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
 
@@ -99,7 +163,11 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         if (!cbTerms.isChecked) {
-            Toast.makeText(this, "Debes aceptar los términos y condiciones", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Debes aceptar los términos y condiciones",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
 
@@ -107,13 +175,50 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun performRegistration(fullname: String, email: String, password: String) {
-        // TODO: Implementar registro con Firebase
-        Toast.makeText(this, "Creando cuenta...", Toast.LENGTH_SHORT).show()
+        showLoading(true)
 
-        // Por ahora, navegar a MainActivity (Login)
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        lifecycleScope.launch {
+            val resultado = firebaseRepository.registrarUsuario(fullname, email, password)
+
+            resultado.onSuccess { firebaseUser ->
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "¡Cuenta creada exitosamente!",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                // Navegar directamente a Home ya que el usuario está autenticado
+                navigateToHome()
+            }.onFailure { excepcion ->
+                showLoading(false)
+                val mensajeError = when {
+                    excepcion.message?.contains("already in use") == true ->
+                        "Este correo electrónico ya está registrado"
+                    excepcion.message?.contains("network") == true ->
+                        "Error de conexión. Verifica tu internet"
+                    excepcion.message?.contains("weak-password") == true ->
+                        "La contraseña es muy débil"
+                    else -> "Error al crear cuenta: ${excepcion.message}"
+                }
+                Toast.makeText(this@RegisterActivity, mensajeError, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun navigateToHome() {
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
+    }
+
+    private fun showLoading(mostrar: Boolean) {
+        progressBar.visibility = if (mostrar) View.VISIBLE else View.GONE
+        btnCreateAccount.isEnabled = !mostrar
+        etFullname.isEnabled = !mostrar
+        etEmail.isEnabled = !mostrar
+        etPassword.isEnabled = !mostrar
+        etConfirmPassword.isEnabled = !mostrar
+        cbTerms.isEnabled = !mostrar
     }
 }
