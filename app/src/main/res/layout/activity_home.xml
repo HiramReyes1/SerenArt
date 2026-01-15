@@ -44,15 +44,6 @@
                     app:tint="@color/button_primary"
                     app:backgroundTint="@color/white"
                     android:contentDescription="Crear"/>
-
-                <ImageButton
-                    android:id="@+id/btn_notifications"
-                    android:layout_width="@dimen/icon_size_large"
-                    android:layout_height="@dimen/icon_size_large"
-                    android:src="@drawable/ic_notifications"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Notificaciones"
-                    app:tint="@color/text_primary"/>
             </LinearLayout>
 
             <!-- Gráfico de Progreso -->

@@ -17,7 +17,6 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var tvGreeting: TextView
     private lateinit var btnAdd: ImageButton
-    private lateinit var btnNotifications: ImageButton
     private lateinit var cardExerciseDay: MaterialCardView
     private lateinit var btnStartExercise: MaterialButton
     private lateinit var bottomNavigation: BottomNavigationView
@@ -44,7 +43,6 @@ class HomeActivity : AppCompatActivity() {
     private fun initViews() {
         tvGreeting = findViewById(R.id.tv_greeting)
         btnAdd = findViewById(R.id.btn_add)
-        btnNotifications = findViewById(R.id.btn_notifications)
         cardExerciseDay = findViewById(R.id.card_exercise_day)
         btnStartExercise = findViewById(R.id.btn_start_exercise)
         bottomNavigation = findViewById(R.id.bottom_navigation)
@@ -54,11 +52,6 @@ class HomeActivity : AppCompatActivity() {
         btnAdd.setOnClickListener {
             // TODO: Mostrar opciones de creación rápida
             Toast.makeText(this, "Crear nuevo ejercicio", Toast.LENGTH_SHORT).show()
-        }
-
-        btnNotifications.setOnClickListener {
-            // TODO: Abrir pantalla de notificaciones
-            Toast.makeText(this, "Notificaciones", Toast.LENGTH_SHORT).show()
         }
 
         btnStartExercise.setOnClickListener {
